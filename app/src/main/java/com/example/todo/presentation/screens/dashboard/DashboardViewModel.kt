@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo.data.model.TodoItem
 import com.example.todo.data.repository.TodoRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -56,6 +57,24 @@ class DashboardViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+    // GETTING OUR TODOS FROM FIREBASE
+    val firebaseTodos: StateFlow<List<TodoItem>>
+    = repository.fetchtodosFromFirebase().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+    // expose the update and delete
+    fun deleteTodoFromFirebase(todo: TodoItem){
+        viewModelScope.launch {
+            repository.deleteTodoFirebase(todo)
+        }
+    }
+    fun updateTodoFromFirebase(todo: TodoItem){
+        viewModelScope.launch {
+            repository.updateTodoFirebase(todo)
+        }
+    }
     // [ {} , {} , { }  ]
     // functions working on the data being observed
     // 1 ....... 10000000000000000000000000000000000000000000000000000
@@ -97,6 +116,18 @@ class DashboardViewModel @Inject constructor(
             //firebase insert
             repository.uploadToFirebase(newTodo)
         }
+    }
+    fun sendPasswordReset(email: String, onSuccess: () -> Unit,
+                          onError: (String) -> Unit){
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onError(task.exception?.message ?: "AN ERROR OCCURRED")
+                }
+            }
+
     }
 
 }

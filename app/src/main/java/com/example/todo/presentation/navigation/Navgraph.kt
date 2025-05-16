@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.todo.presentation.components.ForgotPasswordScreen
 import com.example.todo.presentation.screens.auth.LoginScreen
 import com.example.todo.presentation.screens.auth.SignUpScreen
 import com.example.todo.presentation.screens.dashboard.DashboardScreen
@@ -24,7 +25,9 @@ fun TodoNavGraph(navController: NavHostController){
                    //properties for the composable
                    navController
                )
-
+          }
+          composable ("ForgotScreen"){
+              ForgotPasswordScreen(navController)
           }
           // here will define the addtoDo composable
 

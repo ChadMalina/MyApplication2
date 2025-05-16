@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.kapt")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -76,6 +77,12 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
     // coil : image loader
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services")
+    implementation(libs.xkotlinx.coroutines.play.services)
+    // retrofit for network communication
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

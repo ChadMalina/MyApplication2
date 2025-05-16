@@ -1,0 +1,13 @@
+### API Integration
+Consuming data from an api endpoint i.e. tasks
+
+Key Implementations
+// retrofit android library to communicate data over a network/internet
+implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+//convert to json , so that we parse the json object which can be converted to a model class
+implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//Logging to capture all process as communication over the network happens
+implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+// android excepts all communications to be done over https : django
+//projects run on http
+// dummy ngrok :: to server our local project over the internet
